@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <title>Dashboard - Contas</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="div-pai">
+
+      <!-- Cabeçalho -->
+    <header>
+      <div class="header-container">
+        <h2>DASHBOARD - CONTROLE DE USUÁRIOS</h2>
+        <div class="div-pai-perfil">
+          <div class="div-linha"></div>
+          <div class="div-todo-perfil">
+            <div class="div-filho-perfil">
+              <img src="../assets/imgs/profile.png" alt="imagem de perfil" class="img-perfil" />
+              <img src="../assets/imgs/seta-para-baixo-braca.png" alt="ver opções" class="img-seta" />
+            </div>
+            <div class="div-opcoes">
+              <div class="div-opcao-sair">
+                <a href="../index.html"><span>Sair</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="container">
+      <div class="div-sidebar">
+        <div class="div-img">
+          <img src="../assets/imgs/AnteçãoBranco.png" alt="Logomarca" />
+        </div>
+        <div class="div-botoes">
+          <a href="mainPage.html">
+            <div class="div-btComImg ">
+              <img src="../assets/imgs/main-menu.png" alt="Imagem do ícone da main page" />
+              <div class="txt-bt">Main Page</div>
+            </div>
+          </a>
+
+          <a href="mainPage.html">
+            <div class="div-btComImg">
+              <img src="../assets/imgs/Hospitais.png" alt="Imagem do ícone de Hospitais" />
+              <div class="txt-bt">Hospitais</div>
+            </div>
+          </a>
+
+          <a href="contas.html">
+            <div class="div-btComImg div-btEscolhido">
+              <img src="../assets/imgs/multiplasPessoas.png" alt="Imagem do ícone das contas registradas" />
+              <div class="txt-bt">Contas</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="conteudo-principal">
+
+        <div class="div-flex">
+            <div class="div-block">
+                <a href="../cadastro.html">
+                    <div class="div-botao">
+                        <h3>Adicionar novo usuário</h3>
+                    </div>
+                </a>
+
+                <div class="div-procura">
+                    <div class="div-ipt-procura">
+                        <label for="">Procure pelo nome:</label>
+                        <input type="text" class="ipt_procura">
+                    </div>
+                    <div class="div-ipt-procura">
+                        <label for="">Procure pelo e-mail:</label>
+                        <input type="text" class="ipt_procura">
+                    </div>
+                    <div class="div-ipt-procura">
+                        <label for="">filtre por atividade:</label>
+                        <select name="" id="select_atividade"  onclick="teste()" class="ipt_procura">
+                            <option value="1" disabled>Selecione o tipo de Status</option>
+                            <option value="">Ativo</option>
+                            <option value="">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="mostrarUsuarios">
+                    <table>
+                        <thead>
+                            <tr class="nomeColuna">
+                                <th class="colunaUsuario">Nome</th>
+                                <th class="colunaEmail">E-mail</th>
+                                <th class="colunaStatus">Status</th>
+                                <th class="colunaDelete">Deletar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody_usuarios">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+      </div>
+    
+    </div>
+
+
+  </div>
+</body>
+</html>
+
+<script>
+
+    function teste() {
+        const select = document.getElementById("select_atividade");
+
+  // Desabilitando a segunda opção
+  select.options[1].disabled = true;
+    }
+const usuarios = [
+    {id: 1,nome: 'João Silva Sptech', email: 'joao@exemplo.com', acesso: 'Ativo' },
+    {id: 2,nome: 'Gabriel Henrique Sptech', email: 'maria@exasdasdasdasdemplo.com', acesso: 'Ativo' },
+    {id: 3,nome: 'Carlos Souza Sptech', email: 'carlos@exemplo.com', acesso: 'Inativo' }
+];
+
+const isSelf = false;
+
+function adicionarUsuariosNaTabela() {
+    const tbody = document.getElementById('tbody_usuarios');
+    
+    tbody.innerHTML = '';
+
+    for (let i = 0; i < usuarios.length; i++) {
+        const usuario = usuarios[i];
+
+        const tr = document.createElement('tr');
+
+        tr.innerHTML = `
+            <td class="colunaUsuario">${usuario.nome}</td>
+            <td class="colunaEmail">${usuario.email}</td>
+            <td class="colunaAcesso"
+            style="cursor: pointer;"
+            onclick="alterarAcesso(${i})">
+            ${usuario.acesso}</td>
+            <td class="colunaDelete">
+                ${isSelf
+                    ? '<span style="color:gray;opacity:0.5;cursor:not-allowed;"><i class="fa-solid fa-trash"></i></span>'
+                    : `<button style="text-align: center; background-color: transparent; border: none; cursor: pointer;"onclick="deletarUsuario(${usuario.id})">
+                        <img src="../assets/imgs/lixeira.png" alt="Deletar" style="width: 20px; height: 20px; te: center;">
+                    </button>`
+                }
+            </td>
+        `;
+
+        if(usuario.acesso == "Inativo") {
+            tr.style.backgroundColor = 'yellow';
+        }else {
+            if(i % 2 == 0) {
+                tr.style.backgroundColor = '#B7E4C7';
+            }else {
+                tr.style.backgroundColor = 'transparent';
+            } 
+        }
+        tbody.appendChild(tr);
+    }
+}
+
+function alterarAcesso(index) {
+    const usuario = usuarios[index];
+    const tdAcesso = document.getElementsByClassName('colunaAcesso')[index];
+    
+    if (usuario.acesso == 'Ativo') {
+        usuario.acesso = 'Inativo';
+    } else {
+        usuario.acesso = 'Ativo';
+    }
+
+    tdAcesso.innerHTML = usuario.acesso;
+    adicionarUsuariosNaTabela();
+}
+
+function deletarUsuario(id) {
+    alert('Usuário com ID ' + id + ' deletado.');
+    tr.style.display = 'none';
+}
+
+adicionarUsuariosNaTabela();
+
+
+</script>
