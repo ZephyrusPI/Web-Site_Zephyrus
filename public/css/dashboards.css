@@ -237,14 +237,15 @@ body {
 }
 
 
-<<<<<<< Updated upstream
+/* <<<<<<< Updated upstream */
 .cards h1 {
   font-size: 22px;
   border-bottom: solid white 1px;
   text-align: left;
   font-weight: lighter;
   margin: 20px;
-=======
+}
+/* ======= */
 .div-block .div-botao {
     background-color: var(--verde-3);
     width: 15rem;
@@ -257,7 +258,7 @@ body {
     margin-top: 30px;
     margin-bottom: 30px;
     transition: 0.5s;
->>>>>>> Stashed changes
+/* >>>>>>> Stashed changes */
 }
 
 .temperatura,
@@ -274,7 +275,7 @@ body {
   display: inline-block;
 }
 
-<<<<<<< Updated upstream
+/* <<<<<<< Updated upstream */
 .btns-dash {
   display: flex;
   align-items: center;
@@ -442,7 +443,7 @@ canvas {
   margin-bottom: 100px;
   cursor: pointer;
 }
-=======
+/* ======= */
 
 .div-procura {
     display: flex;
@@ -479,4 +480,4 @@ canvas {
     /* border-bottom: 2px solid linear-gradient(to right, #6E035C 0%, #B94FFA 50%, #6E035C 100%); */
 }
 
->>>>>>> Stashed changes
+/* >>>>>>> Stashed changes */
