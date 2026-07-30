@@ -14,6 +14,20 @@ const auth = btoa(`${emailJira}:${tokenJira}`);
 router.post("/processarAlertas", async (req, res) => {
   const alertas = req.body;
 
+  if (!Array.isArray(alertas) || !alertas.every((alerta) =>
+    alerta &&
+    typeof alerta === "object" &&
+    typeof alerta.numero_serie === "string" &&
+    typeof alerta.componente === "string" &&
+    typeof alerta.hospital === "string" &&
+    typeof alerta.area === "string" &&
+    typeof alerta.valor_lido === "number" &&
+    typeof alerta.max_permitido === "number" &&
+    typeof alerta.min_permitido === "number"
+  )) {
+    return res.status(400).json({ erro: "Formato inválido de alertas" });
+  }
+
   try {
     const jiraResponse = await fetch(`https://${dominioJira}/rest/api/3/search/jql`, {
       method: "POST",
