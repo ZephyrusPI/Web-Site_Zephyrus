@@ -908,9 +908,9 @@
 
         document.querySelectorAll(".hospitalSelected").forEach(hosp => {
             if (valorHospital == 'todos') {
-                hosp.innerHTML = `em ${valorHospital}`;
+                hosp.textContent = `em ${valorHospital}`;
             } else {
-                hosp.innerHTML = `no ${valorHospital}`;
+                hosp.textContent = `no ${valorHospital}`;
             }
         });
 
